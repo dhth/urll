@@ -1,0 +1,21 @@
+[package]
+name = "urll"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.97"
+arboard = "3.4.1"
+clap = { version = "4.5.31", features = ["derive"] }
+env_logger = "0.11.6"
+log = "0.4.26"
+open = "5.3.2"
+ratatui = "0.29.0"
+reqwest = { version = "0.12.12", features = ["rustls-tls"] }
+scraper = "0.23.1"
+tokio = { version = "1.43.0", features = ["full"] }
+url = "2.5.4"
+
+[lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
