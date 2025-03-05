@@ -44,7 +44,7 @@ pub async fn fetch_urls(url: &str) -> anyhow::Result<Page> {
     for element in document.select(&link_selector) {
         if let Some(href) = element.value().attr("href") {
             let link = base_url.join(href)?;
-            if link.as_str().starts_with("https://") || link.as_str().starts_with("http://") {
+            if link.as_str().starts_with("https://") {
                 page_urls.push(link.to_string());
             }
         }

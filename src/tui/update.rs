@@ -27,29 +27,25 @@ pub fn update(model: &mut Model, msg: Message) -> Vec<Command> {
             }
         }
         Message::ResultsFetched {
-            current,
-            chosen,
+            previous,
             page_result,
-        } => {
-            model.page_details.url = chosen.clone();
-            match page_result {
-                Ok(page) => {
-                    if page.page_urls.is_empty() {
-                        model.user_message =
-                            Some(UserMessage::info("no urls on the selected page"));
-                    } else {
-                        model.page_details.url = chosen.clone();
-                        model.results = Ok(Results::from(&page.page_urls));
-                        model.page_details = page.details.clone();
-                        model.results_cache.insert(chosen, page);
-                        model.user_message = None;
-                    }
+        } => match page_result {
+            Ok(page) => {
+                if page.page_urls.is_empty() {
+                    model.user_message = Some(UserMessage::info("no urls on the selected page"));
+                } else {
+                    model.results = Ok(Results::from(&page.page_urls));
+                    model.page_details = page.details.clone();
+                    model.results_cache.insert(page.details.url.clone(), page);
+                    model.history.push_back(previous.clone());
+                    model.user_message = None;
                 }
-                Err(e) => model.results = Err(e),
             }
-
-            model.history.push_back(current.clone());
-        }
+            Err(e) => {
+                model.results = Err(e);
+                model.history.push_back(previous.clone());
+            }
+        },
         Message::GoToNextListItem => model.select_next_list_item(),
         Message::GoToPreviousListItem => model.select_previous_list_item(),
         Message::GoToFirstListItem => model.select_first_list_item(),
@@ -108,7 +104,7 @@ pub fn update(model: &mut Model, msg: Message) -> Vec<Command> {
                     model.user_message = Some(UserMessage::error("something went wrong"));
                 }
             } else {
-                model.user_message = Some(UserMessage::error("nothing to go back to"));
+                model.user_message = Some(UserMessage::error("at the start of navigation history"));
             }
         }
         Message::GoBackOrQuit => model.go_back_or_quit(),

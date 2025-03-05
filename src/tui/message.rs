@@ -14,8 +14,7 @@ pub(crate) enum Message {
     GoBack,
     UrlChosen,
     ResultsFetched {
-        current: String,
-        chosen: String,
+        previous: String,
         page_result: Result<Page, String>,
     },
     ContentYanked(anyhow::Result<()>),

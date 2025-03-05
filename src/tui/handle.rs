@@ -10,8 +10,7 @@ pub(super) async fn handle_command(command: Command, event_tx: Sender<Message>) 
             tokio::spawn(async move {
                 let page = fetch_urls(&chosen).await.map_err(|e| e.to_string());
                 let _ = event_tx.try_send(Message::ResultsFetched {
-                    current,
-                    chosen,
+                    previous: current,
                     page_result: page,
                 });
             });
