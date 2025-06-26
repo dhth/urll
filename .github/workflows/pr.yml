@@ -34,6 +34,7 @@ jobs:
             deps:
               - "Cargo.toml"
               - "Cargo.lock"
+              - "deny.toml"
               - ".github/workflows/pr.yml"
             workflows:
               - ".github/**/*.yml"
@@ -126,10 +127,6 @@ jobs:
     if: ${{ needs.changes.outputs.deps == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Install toolchain
-        uses: actions-rust-lang/setup-rust-toolchain@v1
-      - name: Install cargo-audit
-        run: cargo install cargo-audit
-      - name: cargo audit
-        run: cargo audit
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: dhth/composite-actions/.github/actions/cargo-deny@main
