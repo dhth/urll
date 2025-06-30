@@ -6,7 +6,7 @@ license = "MIT"
 
 [dependencies]
 anyhow = "1.0.98"
-arboard = "3.5.0"
+arboard = "3.6.0"
 clap = { version = "4.5.40", features = ["derive"] }
 env_logger = "0.11.8"
 log = "0.4.27"
