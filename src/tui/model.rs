@@ -142,26 +142,23 @@ impl Model {
     }
 
     pub(super) fn select_previous_list_item(&mut self) {
-        if self.active_pane == Pane::ResultsList {
-            if let Ok(r) = &mut self.results {
+        if self.active_pane == Pane::ResultsList
+            && let Ok(r) = &mut self.results {
                 r.state.select_previous();
             }
-        }
     }
 
     pub(super) fn select_first_list_item(&mut self) {
-        if self.active_pane == Pane::ResultsList {
-            if let Ok(r) = &mut self.results {
+        if self.active_pane == Pane::ResultsList
+            && let Ok(r) = &mut self.results {
                 r.state.select_first();
             }
-        }
     }
     pub(super) fn select_last_list_item(&mut self) {
-        if self.active_pane == Pane::ResultsList {
-            if let Ok(r) = &mut self.results {
+        if self.active_pane == Pane::ResultsList
+            && let Ok(r) = &mut self.results {
                 r.state.select_last();
             }
-        }
     }
 
     pub fn get_selected_url(&self) -> Option<(String, usize)> {
