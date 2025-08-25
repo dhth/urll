@@ -1,11 +1,11 @@
 <p align="center">
   <h1 align="center">urll</h1>
   <p align="center">
-    <a href="https://github.com/dhth/urll/actions/workflows/build.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/dhth/urll/build.yml?style=flat-square"></a>
+    <a href="https://github.com/dhth/urll/actions/workflows/main.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/dhth/urll/main.yml?style=flat-square"></a>
   </p>
 </p>
 
-`urll` lets you browse URLs in a webpage in a recursive manner.
+`urll` lets you browse URLs on a webpage in a recursive manner.
 
 ![tui](https://github.com/user-attachments/assets/b1939f41-e3b8-4e8a-8e28-a27a9fe39133)
 
