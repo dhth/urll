@@ -1,0 +1,92 @@
+min_version = "2026.11.7"
+
+[settings]
+idiomatic_version_file_enable_tools = ["rust"]
+task.run_auto_install = false
+
+[env]
+_.file = ".env"
+
+[tool_alias]
+cargo-deny = "aqua:EmbarkStudios/cargo-deny"
+
+[tools]
+actionlint = "latest"
+cargo-deny = "latest"
+yamlfmt = "latest"
+
+[tasks.all]
+alias = "a"
+description = "Check, format, lint, and test"
+run = [
+	{ task = "check" },
+	{ task = "fmt" },
+	{ task = "lint" },
+	{ task = "test" },
+]
+
+[tasks.build]
+alias = "b"
+description = "Build the application"
+run = "cargo build"
+
+[tasks.check]
+alias = "c"
+description = "Check all targets"
+run = "cargo check --all-targets"
+
+[tasks.deny]
+alias = "d"
+description = "Run cargo-deny"
+run = "cargo deny check --hide-inclusion-graph"
+
+[tasks.fmt]
+alias = "f"
+description = "Format Rust source files"
+run = "cargo fmt --all"
+
+[tasks."fmt:check"]
+alias = ["fc", "fmt-check"]
+description = "Check Rust source formatting"
+run = "cargo fmt --all -- --check"
+
+[tasks.install]
+alias = "i"
+description = "Install the application"
+run = "cargo install --path ."
+
+[tasks.lint]
+alias = "l"
+description = "Lint all targets"
+run = "cargo clippy --all-targets"
+
+[tasks."lint:fix"]
+alias = ["lf", "lint-fix"]
+description = "Apply Clippy fixes"
+run = "cargo clippy --fix --allow-dirty --allow-staged"
+
+[tasks.run]
+alias = "r"
+description = "Run the application"
+raw_args = true
+run = "cargo run --"
+
+[tasks.test]
+alias = "t"
+description = "Run all tests"
+raw_args = true
+run = "cargo test"
+
+[tasks."lint:actions"]
+description = "Lint GitHub Actions workflows"
+run = "actionlint"
+
+[tasks."lint:yaml"]
+description = "Lint YAML files"
+run = '''
+yamlfmt \
+	-lint \
+	-quiet \
+	-formatter 'retain_line_breaks_single=true' \
+	$(git ls-files '*.yml' '*.yaml')
+'''
